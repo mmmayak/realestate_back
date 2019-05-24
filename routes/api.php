@@ -5,6 +5,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
+    
 
     Route::post('login', 'AuthJWTController@login');
     Route::post('logout', 'AuthJWTController@logout');
