@@ -15,13 +15,19 @@ Route::group([
 
 });
 
-Route::prefix('devtest')->group(function () {
+Route::prefix('files')->group(function () {
+    
+    Route::get('/all', 'FileController@index')->middleware(['jwt.verify:api']);
+    Route::get('/download/{file}','FileController@getFile')->middleware(['jwt.verify:api']);
+    Route::post('/store','FileController@store')->middleware(['jwt.verify:api','admin']);
+    Route::delete('/{file}','FileController@destroy')->middleware(['jwt.verify:api','admin']);
+ 
+});
 
+Route::prefix('devtest')->group(function () {
    
     Route::get('admin', function () {
         return 'admin middleware done!';
-    })->middleware(['api','admin']);
-
-   
-
+    })->middleware(['jwt.verify','admin']); 
+ 
 });
