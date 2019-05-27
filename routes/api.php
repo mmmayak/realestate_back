@@ -14,3 +14,14 @@ Route::group([
     Route::post('me', 'AuthJWTController@me');
 
 });
+
+Route::prefix('devtest')->group(function () {
+
+   
+    Route::get('admin', function () {
+        return 'admin middleware done!';
+    })->middleware(['api','admin']);
+
+   
+
+});
