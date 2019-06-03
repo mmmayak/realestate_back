@@ -41,7 +41,7 @@ class FileController extends Controller
         foreach ($files as $file) {
 
             $path = $this->uploadFile($file);
-            $createdFile = \App\File::create(['path'=>$path,'name'=>$file->getClientOriginalName()]);
+            $createdFile = \App\File::create(['path'=>$path,'name'=>$file->getClientOriginalName(),'description'=>$request->input('description')]);
            
             array_push($response, ['id'=> $createdFile->id , 'path' => $createdFile->path ]);
         }
