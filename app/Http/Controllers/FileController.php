@@ -34,18 +34,11 @@ class FileController extends Controller
     public function store(Request $request)
     {
         //
-        $files = $request->files->all();
-        
-        $response = array();
-        
-        foreach ($files as $file) {
-
-            $path = $this->uploadFile($file);
-            $createdFile = \App\File::create(['path'=>$path,'name'=>$request->input('name')/*$file->getClientOriginalName()*/,'description'=>$request->input('description')]);
+        $file = $request->file('file');
+        $path = $this->uploadFile($file);
+        $createdFile = \App\File::create(['path'=>$path,'name'=>$request->input('name')/*$file->getClientOriginalName()*/,'description'=>$request->input('description')]);
            
-            array_push($response, ['id'=> $createdFile->id , 'path' => $createdFile->path ]);
-        }
-        return response()->json( $response , 201);
+        return response()->json( $createdFile , 201);
     }
 
     /**
