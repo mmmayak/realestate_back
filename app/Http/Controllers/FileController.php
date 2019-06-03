@@ -11,7 +11,7 @@ class FileController extends Controller
    
     public function index()
     {
-        return response()->json(\App\File::select('id','name','description','created_at')->get());
+        return response()->json(\App\File::select('id','path','name','description','created_at')->get());
     }
         /**
      * Store a newly created resource in storage.
