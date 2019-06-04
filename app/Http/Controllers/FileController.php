@@ -63,11 +63,8 @@ class FileController extends Controller
     {
         $file_name = rand() . '.' . $file->getClientOriginalExtension();
         $path = ('/files/private/');
-        Storage::put($path.$file_name,$file);
+        Storage::putFileAs($path, $file, $file_name);
         return $path.$file_name;
-        //File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
-        //$file->move($path, $file_name);
-        //$filePath = '/files/' . $file_name;
-        //return $filePath;
+        
     }
 }
