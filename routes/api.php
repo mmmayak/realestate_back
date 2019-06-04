@@ -1,5 +1,8 @@
 <?php
 
+Route::fallback(function(){
+    return response()->json(['error' => 'Error!','message' => 'Page Not Found.'], 404);
+});
 
 Route::group([
     'middleware' => 'api',
