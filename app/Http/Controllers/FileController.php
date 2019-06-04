@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,6 +34,18 @@ class FileController extends Controller
     public function store(Request $request)
     {
         //
+        //'file' => 'required|max:10000|mimes:doc,docx'
+        $validator = Validator::make($request->all(), [
+            'file' => 'file|required|max:10000|mimes:pdf',
+            'name' => 'required|max:256|min:3',
+            'description' => 'required|max:256|min:3',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 400],400);
+        }
+        
+
         $file = $request->file('file');
         $path = $this->uploadFile($file);
         $createdFile = \App\File::create(['path'=>$path,'name'=>$request->input('name')/*$file->getClientOriginalName()*/,'description'=>$request->input('description')]);
